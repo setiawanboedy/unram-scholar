@@ -8,8 +8,7 @@
     <div class="flex items-center justify-center">
         <div
             class="items-start max-w-5xl w-full flex flex-col gap-1 p-4">
-            <h1 class="font-medium text-2xl">Pengelolaan Limbah Kimia Di
-                Laboratorium Kimia Pmipa Fkip Unram</h1>
+            <h1 class="font-medium text-2xl">{{$item['title']}}</h1>
             <div class="flex gap-2 mt-4">
                 <div
                     class="py-2 px-4 rounded-full bg-[#1976D2] text-white flex gap-1 cursor-pointer hover:bg-[#3783CE]">
@@ -40,7 +39,7 @@
                                 Year
                             </th>
                             <td class="py-2">
-                                2019
+                                {{$item['publication_year']}}
                             </td>
                         </tr>
                         <tr
@@ -50,7 +49,7 @@
                                 Type
                             </th>
                             <td class="py-2">
-                                Article
+                                {{$item['type']}}
                             </td>
                         </tr>
                         <tr class="bg-white">
@@ -62,7 +61,7 @@
                                 <div class="w-full" x-data="{ expanded: false }">
                                     <p class="text-gray-900">
                                         <span :class="expanded ? 'line-clamp-none' : 'line-clamp-2 overflow-hidden'">
-                                            Abstrak: Limbah bahan kimia baik sisa praktikum maupun bahan kedaluarsa di Laboratorium Kimia PMIPA FKIP Universitas Mataram perlu dikaji secara mendalam, sehingga dapat ditemukan solusi bagaimana cara pengelolaan yang tepat. Untuk menemukan formula pengelolaan yang tepat diperlukan pengkajian tentang: identifikasi penyebab timbulnya limbah bahan kimia, perhitungan jumlah limbah, mekanisme pengolahan dan pembuangan ke lingkungan. Kuantitas limbah bahan kimia dan teknik pengelolaannya menjadi indikator seberapa baik tata kelola limbah. Tujuannya adalah untuk menemukan solusi dalam pengelolaan limbah bahan kimia, sehingga dapat dijadikan dasar/pedoman dalam upaya minimalisasi potensi limbah baik pada penanganan di gudang maupun pengurangan kuantitas limbah yang dihasilkan dari kegiatan praktikum di laboratorium PMIPA FKIP Universitas Mataram. Teknik dokumentasi yang digunakan dalam pengelolaan dapat diperoleh beberapa hal, yaitu: (1) limbah bahan kimia berasal dari sisa pembuatan larutan, sisa praktikum, hasil pencucian alat, dan bahan kedaluarsa. (2). Penurunan jumlah bahan kimia yang disimpanÃÂ diÃÂ gudangÃÂ sebesarÃÂ 18,5 %ÃÂ dariÃÂ totalÃÂ persediaan,ÃÂ sedangkan jumlah bahan penyebab limbah B3 berkurang 29%. (3) Diperlukan teknik pengolahan limbah bahan kimia tersebut sebelum dibuang ke lingkungan. (4) Rekomendasi usulan ÃÂ amandemen S.O.P Perencanaan, Penerimaan Bahan, Audit Gudang sehingga pencegahan pencemaran bahan kimia.ÃÂ Kata kunci : Bahan kimia, ÃÂ Pengelolaan limbah, MSDS, Incompatibility, StandardÃÂ ÃÂ OperatingÃÂ ÃÂ Procedure (S.O.P)Abstract: Hazardous chemicals and materials practicum good rest expiry Chemistry Laboratory, University of Mataram PMIPA FKIP needs to be studied in depth, so as to find solutions on how to appropriate management. To find the right formula management studies are necessary regarding: the identification of the causes of chemical wastes, the calculation of the amount of waste, treatment and disposal mechanisms to the environment. The quantity of chemicals and waste management techniques to be an indicator of how well the governance of waste. The goal is to find a solution in the management of chemical waste, so it can be used as the basis / guidelines in an effort to minimize the potential for waste both in handling in the warehouse as well as a reduction in the quantity of waste generated from laboratory experiments PMIPA FKIP University of Mataram. Techniques used in the management of documentation may be obtained several ways, namely: (1) chemical wastes coming from the rest of the preparation of the solution, the rest of the lab, the results of the washing apparatus, and outdated materials. (2). Decrease the amount of chemicals stored in the warehouses of 18.5% of the total inventory, while the amount of material cause of the B3 waste is reduced by 29%. (3) Required waste processing techniques such chemicals before being discharged into the environment. (4) Recommendations proposed amendments S.O.P Planning, Reception Materials, Audit Vault so that the prevention of chemical contamination.ÃÂ Keywords: Chemicals, Waste management, MSDS, Incompatibility, Standard Operating Procedure (S.O.P)
+                                            {{$abstract}}
                                         </span>
                                     </p>
                                 
@@ -79,25 +78,27 @@
                                 Source
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                FMIPA Unram
+                                <a href="{{ $item['primary_location']['source']['id'] ?? '#' }}">
+                                    {{ $item['primary_location']['source']['display_name'] ?? '-' }}
+                                </a>
                             </td>
                         </tr>
                         <tr class="bg-white">
                             <th scope="row"
-                                class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap align-top">
                                 Authors
                             </th>
-                            <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                Budi Setiawan
+                            <td class="py-2 text-blue-500">
+                                    {{ implode(', ', array_column($authors, 'name')) }}
                             </td>
                         </tr>
                         <tr class="bg-white">
                             <th scope="row"
-                                class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap align-top">
                                 Institution
                             </th>
-                            <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                Universitas Mataram
+                            <td class="py-2 text-blue-500">
+                                {{ implode(', ', array_column($institutions, 'name')) }}
                             </td>
                         </tr>
                     </tbody>
@@ -115,7 +116,7 @@
                                 Cites
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                1
+                                {{$item['referenced_works_count']}}
                             </td>
                         </tr>
                         <tr
@@ -125,7 +126,7 @@
                                 Cited by
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                6
+                                {{$item['cited_by_count']}}
                             </td>
                         </tr>
                         <tr class="bg-white">
@@ -134,7 +135,7 @@
                                 Related to
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                10
+                                {{$related_to}}
                             </td>
                         </tr>
                         <tr class="bg-white">
@@ -143,7 +144,7 @@
                                 FWCI
                             </th>
                             <td class="py-2">
-                                1.2
+                                {{$item['fwci']}}
                             </td>
                         </tr>
                         <tr class="bg-white">
@@ -152,7 +153,7 @@
                                 Citation percentile <br> (by year/subfield):
                             </th>
                             <td class="py-2 align-bottom">
-                                9.10
+                                {{$cited_percentile}}
                             </td>
                         </tr>
                     </tbody>
@@ -170,7 +171,7 @@
                                 Topic
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                Chemical Safety and Risk Management
+                                {{$item['primary_topic']['display_name']}}
                             </td>
                         </tr>
                         <tr
@@ -180,7 +181,7 @@
                                 Subfield
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                Chemical Health and Safety
+                                {{$item['primary_topic']['subfield']['display_name']}}
                             </td>
                         </tr>
                         <tr class="bg-white">
@@ -189,7 +190,7 @@
                                 Field
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                Chemical Engineering
+                                {{$item['primary_topic']['field']['display_name']}}
                             </td>
                         </tr>
                         <tr class="bg-white">
@@ -198,7 +199,7 @@
                                 Domain
                             </th>
                             <td class="py-2 hover:underline cursor-pointer text-blue-500">
-                                Physical Sciences
+                                {{$item['primary_topic']['domain']['display_name']}}
                             </td>
                         </tr>
                     </tbody>
@@ -216,7 +217,7 @@
                                 Open Access Status
                             </th>
                             <td class="py-2">
-                                Gold
+                                {{$item['open_access']['oa_status']}}
                             </td>
                         </tr>
                         <tr
@@ -226,7 +227,7 @@
                                 APC paid (est)
                             </th>
                             <td class="py-2">
-                                $26
+                                ${{$thausand_dolar}}
                             </td>
                         </tr>
                     </tbody>

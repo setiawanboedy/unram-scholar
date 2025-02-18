@@ -3,7 +3,7 @@
         <ul class="list-none space-y-2 flex flex-col">
             @foreach ($paginatedResults as $result)
                 <li class="items-start max-w-3xl w-full rounded-md hover:bg-gray-100 cursor-pointer">
-                    <a href="{{route('detail.index')}}" class="flex flex-col gap-1 p-4">
+                    <a href="{{route('detail.index', $result['id'])}}" class="flex flex-col gap-1 p-4">
                         <div class="font-semibold text-xl">{{$result['title']}}</div>
                         <div class="text-gray-600">2021 <span>.</span> Muhammad Syazali, Aisa Nikmah Rahmatih, et al. <span>.</span> <span class="italic">JOURNAL PIJAR MIPA</span></div>
                         <div class="text-sm font-semibold flex items-center gap-4">

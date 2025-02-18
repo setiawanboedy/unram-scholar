@@ -9,4 +9,4 @@ Route::get('/', function () {
 });
 
 Route::get('/results',[ResultController::class, 'index'])->name('result.index');
-Route::get('/detail',[DetailController::class, 'index'])->name('detail.index');
+Route::get('/detail/{id}',[DetailController::class, 'index'])->where('id', '.*')->name('detail.index');
