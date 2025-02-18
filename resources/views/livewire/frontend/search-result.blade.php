@@ -1,7 +1,7 @@
 <div>
     <div class="flex items-center justify-center">
         <ul class="list-none space-y-2 flex flex-col">
-            @if ($paginatedResults)
+            @if ($results->isNotEmpty())
             @foreach ($paginatedResults as $result)
                 @php
                     $authorNames = collect($result['authorships'])->map(function ($authorship) {
@@ -27,7 +27,7 @@
             @endif
         </ul>
     </div>
-    @if ($paginatedResults)
+    @if ($results->isNotEmpty())
     <div class="mt-4 max-w-3xl w-full mx-auto px-4">
         <div class="mt-4 flex justify-center">
             <div class="flex space-x-2">

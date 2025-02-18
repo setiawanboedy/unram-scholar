@@ -38,15 +38,9 @@ class SearchResult extends Component
             return view('livewire.search-results', ['results' => collect([])]);
         }
 
-        // Ambil semua hasil jika query kosong
-        if (empty($this->query)) {
-            $results = collect($jsonData['results']);
-        } else {
-            // Pencarian case-insensitive
-            $results = collect($jsonData['results'])->filter(function ($item) {
-                return Str::contains(Str::lower($item['title']), Str::lower($this->query));
-            });
-        }
+        $results = collect($jsonData['results'])->filter(function ($item) {
+            return Str::contains(Str::lower($item['title']), Str::lower($this->query));
+        });
 
         // Paginate manually
         $perPage = 10;
@@ -61,6 +55,9 @@ class SearchResult extends Component
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('livewire.frontend.search-result', compact('paginatedResults'));
+        return view('livewire.frontend.search-result', [
+            'paginatedResults'=> $paginatedResults,
+            'results'=>$results
+        ]);
     }
 }
