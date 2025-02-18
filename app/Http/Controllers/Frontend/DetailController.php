@@ -31,7 +31,7 @@ class DetailController extends Controller
 
         $related_to = $this->related_count($item['related_works']);
         $cited_percentile = $this->cited_percentile($item['citation_normalized_percentile']['value']);
-        $thausand_doalr = $this->thausand_dolar($item['apc_paid']['value_usd']);
+        $thausand_doalr = $this->thausand_dolar($item['apc_paid'] ?? null);
         return view('detail', [
             'item' => $item,
             'abstract' => $abstract,
@@ -96,6 +96,9 @@ class DetailController extends Controller
 
     private function thausand_dolar($value)
     {
-        return number_format($value, 0, '.', ',');
+        if ($value) {
+            return '$'.number_format($value['value_usd'], 0, '.', ',');
+        }
+        return '-';
     }
 }

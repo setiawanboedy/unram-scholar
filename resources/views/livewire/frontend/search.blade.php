@@ -1,10 +1,10 @@
 <div>
 <section class="flex items-center justify-center px-4 pt-8">
-    <form class="max-w-xl w-full mx-auto">
+    <form class="max-w-xl w-full mx-auto" wire:submit.prevent='search'>
         <label for="default-search" class="mb-2 text-sm font-medium sr-only">Search</label>
         <div class="relative">
             <!-- Search Input -->
-            <input type="search" id="default-search"
+            <input wire:model='query' type="search" id="default-search"
                 class="peer block w-full p-4 ps-10 text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:border-blue-500 focus:outline-none"
                 placeholder="Search Unram Scholar..." required />
         

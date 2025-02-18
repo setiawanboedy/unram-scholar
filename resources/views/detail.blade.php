@@ -227,7 +227,7 @@
                                 APC paid (est)
                             </th>
                             <td class="py-2">
-                                ${{$thausand_dolar}}
+                                {{$thausand_dolar}}
                             </td>
                         </tr>
                     </tbody>

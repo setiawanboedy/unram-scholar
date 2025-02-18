@@ -1,20 +1,33 @@
 <div>
     <div class="flex items-center justify-center">
         <ul class="list-none space-y-2 flex flex-col">
+            @if ($paginatedResults)
             @foreach ($paginatedResults as $result)
+                @php
+                    $authorNames = collect($result['authorships'])->map(function ($authorship) {
+                        return $authorship['author']['display_name'] ?? 'Unknown Author'; // Handle missing names
+                    })->values()->toArray();
+                @endphp
                 <li class="items-start max-w-3xl w-full rounded-md hover:bg-gray-100 cursor-pointer">
                     <a href="{{route('detail.index', $result['id'])}}" class="flex flex-col gap-1 p-4">
                         <div class="font-semibold text-xl">{{$result['title']}}</div>
-                        <div class="text-gray-600">2021 <span>.</span> Muhammad Syazali, Aisa Nikmah Rahmatih, et al. <span>.</span> <span class="italic">JOURNAL PIJAR MIPA</span></div>
+                        <div class="text-gray-600">{{$result['publication_year']}} <span>.</span> {{ implode(', ', array_slice($authorNames, 0, 2)) }}, et al. <span>.</span> <span class="italic">{{ $result['primary_location']['source']['display_name'] ?? '-' }}</span></div>
                         <div class="text-sm font-semibold flex items-center gap-4">
-                            <span>Cited by 25</span>
-                            <span class="text-blue-600 underline cursor-pointer">PDF</span>
+                            <span>Cited by {{$result['cited_by_count']}}</span>
+                            <span class="text-blue-600 underline cursor-pointer">
+                                <a href='{{$result['best_oa_location']['pdf_url'] ?? '#'}}' class='p-2 hover:rounded-md hover:p-2 hover:bg-gray-300'>PDF</a>
+                            </span>
                         </div>
                     </a>
                 </li>
             @endforeach
+                
+            @else
+                <div>Tidak ada data</div>
+            @endif
         </ul>
     </div>
+    @if ($paginatedResults)
     <div class="mt-4 max-w-3xl w-full mx-auto px-4">
         <div class="mt-4 flex justify-center">
             <div class="flex space-x-2">
@@ -67,4 +80,6 @@
             </div>
         </div>
     </div>
+        
+    @endif
 </div>

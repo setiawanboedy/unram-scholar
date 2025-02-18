@@ -7,17 +7,46 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
+use Illuminate\Support\Str;
 
 class SearchResult extends Component
 {
     use WithPagination;
 
+    public $query = '';
+
+    #[On('searchTriggered')]
+    public function updateSearch($query)
+    {
+        $this->query = strtolower(trim($query));
+
+    }
+
     public function render()
     {
-
         $jsonPath = storage_path('app/public/data.json');
+        if (!file_exists($jsonPath)) {
+            return view('livewire.search-results', ['results' => collect([])]);
+        }
+
+        // Baca file JSON
         $jsonData = json_decode(file_get_contents($jsonPath), true);
-        $results = collect($jsonData['results']); // Convert JSON data to Collection
+
+        // Pastikan JSON memiliki key 'results'
+        if (!isset($jsonData['results'])) {
+            return view('livewire.search-results', ['results' => collect([])]);
+        }
+
+        // Ambil semua hasil jika query kosong
+        if (empty($this->query)) {
+            $results = collect($jsonData['results']);
+        } else {
+            // Pencarian case-insensitive
+            $results = collect($jsonData['results'])->filter(function ($item) {
+                return Str::contains(Str::lower($item['title']), Str::lower($this->query));
+            });
+        }
 
         // Paginate manually
         $perPage = 10;
