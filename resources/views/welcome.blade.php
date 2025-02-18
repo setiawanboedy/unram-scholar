@@ -15,7 +15,7 @@
                 </div>
 
                 <!-- Search Input -->
-                <input type="search" id="default-search"
+                <input type="search" id="query" name='query'
                     class="peer block w-full p-4 ps-10 text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:border-blue-500 focus:outline-none"
                     placeholder="Search Unram Scholar..." required />
             </div>

@@ -10,7 +10,7 @@ class Search extends Component
 
     public function search()
     {
-        $this->dispatch('searchTriggered', query: $this->query);
+        redirect()->route('result.index',['query'=>$this->query]);
     }
 
     public function render()
