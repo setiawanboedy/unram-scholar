@@ -11,7 +11,7 @@ class DetailController extends Controller
 {
     public function index(Request $request, $id)
     {
-        $jsonPath = storage_path('app/public/data.json');
+        $jsonPath = storage_path('app/public/uploads/data.json');
         $jsonData = json_decode(file_get_contents($jsonPath), true);
         // Cari item berdasarkan ID
         $item = collect($jsonData['results'])->firstWhere('id', $id);
