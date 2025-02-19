@@ -25,9 +25,9 @@ class SearchResult extends Component
 
     public function render()
     {
-        $jsonPath = storage_path('app/public/data.json');
+        $jsonPath = storage_path('app/public/uploads/data.json');
         if (!file_exists($jsonPath)) {
-            return view('livewire.search-results', ['results' => collect([])]);
+            return view('livewire.frontend.search-result', ['results' => collect([])]);
         }
 
         // Baca file JSON
@@ -35,7 +35,7 @@ class SearchResult extends Component
 
         // Pastikan JSON memiliki key 'results'
         if (!isset($jsonData['results'])) {
-            return view('livewire.search-results', ['results' => collect([])]);
+            return view('livewire.frontend.search-result', ['results' => collect([])]);
         }
 
         $results = collect($jsonData['results'])->filter(function ($item) {

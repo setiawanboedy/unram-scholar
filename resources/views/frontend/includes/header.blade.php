@@ -9,8 +9,11 @@
                 </div>
             </a>
         </div>
-        <div class="border border-gray-400 rounded-md py-2 px-4 cursor-pointer hover:bg-gray-100">
+
+        @if ($isUploadBtn ?? true)
+        <a href='{{route('upload.index')}}' class="border border-gray-400 rounded-md py-2 px-4 cursor-pointer hover:bg-gray-100">
             Upload
-        </div>
+        </a>
+        @endif
     </nav>
 </div>

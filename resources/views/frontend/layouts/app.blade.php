@@ -18,6 +18,12 @@
         @livewireStyles
     </head>
     <body class="{{$bgWhite ?? 'bg-white'}}">
+        @if (session('success'))
+            @stack('addon-alert-success')
+        @endif
+        @if (session('error'))
+            @stack('addon-alert-error')
+        @endif
         <div class="w-full bg-white">
             @include('frontend.includes.header')
         
