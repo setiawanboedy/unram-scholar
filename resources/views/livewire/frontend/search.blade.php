@@ -1,5 +1,5 @@
 <div>
-<section class="flex items-center justify-center px-4 pt-8">
+<section class="container mx-auto rounded-md flex items-center justify-center px-4 py-6 bg-white mt-8">
     <form class="max-w-xl w-full mx-auto" wire:submit.prevent='search'>
         <label for="default-search" class="mb-2 text-sm font-medium sr-only">Search</label>
         <div class="relative">
